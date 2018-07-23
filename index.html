@@ -1,0 +1,34 @@
+<html>
+
+    <head>
+        <title>Node Chat App</title>
+        <link rel="stylesheet" href="/css/reset.css">
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+
+    <body>
+        <div class="MainWrapper">
+
+            <div class="ChatWrapper">
+                <div class="ChatArea">
+                    <ul id="chat-messages"></ul>
+                </div>
+                <div class="UserArea"></div>
+            </div>
+
+            <div class="FormWrapper">
+                <form id="chat" action="">
+                    <input id="userInput" autocomplete="off">
+                    <input id="submitButton" type="submit">
+                </form>
+            </div>
+
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/clientChat.js"></script>
+
+    </body>
+
+</html>

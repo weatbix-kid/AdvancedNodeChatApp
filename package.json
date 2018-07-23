@@ -1,0 +1,10 @@
+{
+    "name": "advanced-node-chat-app",
+    "version": "1.0",
+    "description": "Based on the socket.io chat application exteneded with more features",
+    "dependencies": {
+        "express": "^4.15.2",
+        "jquery": "^3.3.1",
+        "socket.io": "^2.1.1"
+    }
+}
