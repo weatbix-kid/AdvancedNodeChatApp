@@ -3,6 +3,8 @@ var app = express();
 var server = require('http').createServer(app);
 var socket = require('socket.io')(server);
 
+var users = [];
+
 // Define folder used to serve static files
 app.use(express.static('public'))
 
@@ -13,21 +15,28 @@ app.get('/', function(req, res){
 
 // When a new connection is made
 socket.on('connection', function(clientSocket) {
-    console.log('A new user has connected');
-
-    // clientSocket.on('join', function(data){
-    //     // clientSocket.broadcast.emit('join', data);
-    //     clientSocket.broadcast.emit('join', data);
-    //     console.log(data + " has connected");
-    // });
-
-    clientSocket.on('chat message', function(msg){
-        console.log(msg);
-        clientSocket.broadcast.emit('chat message', msg);
+    clientSocket.on('new user', function(data, callback){
+        if(users.indexOf(data) != -1){
+            callback(false);
+        }
+        else {
+            callback(true);
+            clientSocket.username = data;
+            users.push(clientSocket.username);
+            socket.emit('usernames', users);
+            clientSocket.broadcast.emit('join', clientSocket.username + ' connected');
+        }
     });
 
-    clientSocket.on('disconnect', function(){
-        console.log("A user has disconnected");
+    clientSocket.on('chat message', function(msg){
+        clientSocket.broadcast.emit('chat message', clientSocket.username + ": " + msg);
+    });
+
+    clientSocket.on('disconnect', function(data){
+        if(!clientSocket.username) return;
+        users.splice(users.indexOf(clientSocket.username), 1);
+        socket.emit('usernames', users);
+        clientSocket.broadcast.emit('leave', clientSocket.username + ' disconnected');
     });
 });
 

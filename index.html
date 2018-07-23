@@ -11,14 +11,18 @@
 
             <div class="ChatWrapper">
                 <div class="ChatArea">
-                    <ul id="chat-messages"></ul>
+                    <ul id="chat-messages">
+                        <li id="connectionMessage">Welcome!</li>
+                    </ul>
                 </div>
-                <div class="UserArea"></div>
+                <div class="UserArea">
+                    <ul id="user-list"></ul>
+                </div>
             </div>
 
             <div class="FormWrapper">
                 <form id="chat" action="">
-                    <input id="userInput" autocomplete="off">
+                    <input id="userInput" autocomplete="off" maxlength="255">
                     <input id="submitButton" type="submit">
                 </form>
             </div>
