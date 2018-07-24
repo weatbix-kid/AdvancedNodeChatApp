@@ -36,8 +36,7 @@
 #isTyping {
     display: none;
     color: rgb(100, 138, 23);
-    position: absolute; 
-    bottom: 10px;
+    position: static; 
 }
 
 form input {

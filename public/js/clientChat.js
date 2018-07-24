@@ -72,4 +72,5 @@ $chatForm.submit(function(e){
     $messages.append('<li>' + currentUser + ': ' + $userInput.val() + '</li>');
     socket.emit('chat message', $userInput.val());
     $userInput.val('');
+    // $userInput.blur();
 });
