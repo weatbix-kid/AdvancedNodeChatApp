@@ -13,6 +13,7 @@
 }
 
 .ChatArea {
+    position: relative;
     background-color: greenyellow;
     min-height: 80vh;
     width: 80%;
@@ -30,6 +31,13 @@
     float: right;
     overflow-y: scroll;
     overflow-x: initial;
+}
+
+#isTyping {
+    display: none;
+    color: rgb(100, 138, 23);
+    position: absolute; 
+    bottom: 10px;
 }
 
 form input {

@@ -5,6 +5,7 @@ var $userInput = $('#userInput');
 var $messages = $('#chat-messages');
 var $users = $('#user-list');
 var currentUser = '';
+var $isTypingIndicator = $('#isTyping');
 
 setUsername();
 
@@ -14,6 +15,7 @@ function setUsername(){
         setUsername();
     }
     else{
+        // emit new user event, if name doesnt exist show the chat
         socket.emit('new user', username, function(data){
             if(data){
                 $display.css('display', 'flex');
@@ -27,15 +29,34 @@ function setUsername(){
 }
 
 socket.on('usernames', function(data){
+    // Clear and update users
     $users.empty();
     for(i=0; i < data.length; i++){
-        console.log(data[i]);
         $users.append('<li>' + data[i] + '</li>');
+    }
+});
+
+socket.on('whos typing', function(data){
+    if(data.length > 0){
+        currentlyTyping = data + " is Typing..."
+        $isTypingIndicator.html(currentlyTyping);
+        $isTypingIndicator.css('display', 'inline');
+    }
+    else{
+        $isTypingIndicator.css('display', 'none');
     }
 });
 
 socket.on('chat message', function(msg){
     $messages.append('<li>' + msg + '</li>');
+});
+
+$userInput.focus(function(e){
+    socket.emit('is typing', true);
+});
+
+$userInput.focusout(function(e){
+    socket.emit('is typing', false);
 });
 
 socket.on('join', function(msg){
